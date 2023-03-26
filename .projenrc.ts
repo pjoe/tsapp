@@ -1,4 +1,5 @@
 import { github, javascript, typescript, vscode } from "projen";
+import { UpgradeDependenciesSchedule } from "projen/lib/javascript";
 const project = new typescript.TypeScriptAppProject({
   defaultReleaseBranch: "main",
   name: "tsapp",
@@ -11,6 +12,11 @@ const project = new typescript.TypeScriptAppProject({
   // packageName: undefined,  /* The "name" in package.json. */
   githubOptions: {
     projenCredentials: github.GithubCredentials.fromApp({}),
+  },
+  depsUpgradeOptions: {
+    workflowOptions: {
+      schedule: UpgradeDependenciesSchedule.WEEKLY,
+    },
   },
 });
 
